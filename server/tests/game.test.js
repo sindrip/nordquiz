@@ -7,8 +7,8 @@ describe('Game', () => {
         try {
             let questions = ['q1', 'q2'];
             let game = new Game(questions);
-            expect(game.getState()).toBe('pregame');
-    
+            expect(game.getState()).toBe('PRE');
+
             done();
         } catch(e) {
             done(e);
@@ -18,10 +18,10 @@ describe('Game', () => {
     it('should not return first question if start() is not called', (done) => {
         let questions = ['q1', 'q2'];
         let game = new Game(questions);
-        expect(game.getState()).toBe('pregame');
-        expect(game.nextQuestion()).toBeNull();
-        expect(game.getState()).toBe('pregame');
-    
+        expect(game.getState()).toBe('PRE');
+        expect(game.nextQuestion().data).toBeNull();
+        expect(game.getState()).toBe('PRE');
+
         done();
     });
 
@@ -29,8 +29,8 @@ describe('Game', () => {
         let questions = ['q1', 'q2'];
         let game = new Game(questions);
         game.start();
-        expect(game.nextQuestion()).toBe('q1');
-        expect(game.getState()).toBe('game');
+        expect(game.nextQuestion().data).toBe('q1');
+        expect(game.getState()).toBe('PLAY');
 
         done();
     });
@@ -39,10 +39,10 @@ describe('Game', () => {
         let questions = ['q1', 'q2'];
         let game = new Game(questions);
         game.start();
-        expect(game.nextQuestion()).toBe('q1');
-        expect(game.nextQuestion()).toBe('q2');
-        expect(game.nextQuestion()).toBeNull();
-        expect(game.getState()).toBe('postgame');
+        expect(game.nextQuestion().data).toBe('q1');
+        expect(game.nextQuestion().data).toBe('q2');
+        expect(game.nextQuestion().data).toBeNull();
+        expect(game.getState()).toBe('POST');
 
         done();
     });

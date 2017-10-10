@@ -1,28 +1,38 @@
 class Game {
+
+    // GAME STATES: [PRE, PLAY, POST, END]
     constructor(questions) {
-        this.state = 'pregame';
+        this.state = 'PRE';
         this.questions = questions;
         this.question = null;
         this.questionNumber = -1;
     }
 
+    // PAYLOAD : { STATE, DATA }
+    _payload(data) {
+        return {
+            state: this.state,
+            data,
+        };
+    };
+
     start() {
-        if (this.state === 'pregame') {
-            this.state = 'game';
+        if (this.state === 'PRE') {
+            this.state = 'PLAY';
         }
     }
 
     nextQuestion() {
-        if (this.state != 'game') return null;
+        if (this.state != 'PLAY') return this._payload(null);
 
         if (++this.questionNumber === this.questions.length) {
-            this.state = 'postgame';
-            return null;
+            this.state = 'POST';
+            return this._payload(null);
         }
 
         this.question = this.questions[this.questionNumber];
 
-        return this.question;
+        return this._payload(this.question);
     }
 
     getQuestions() {
