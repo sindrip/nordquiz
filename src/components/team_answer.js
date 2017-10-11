@@ -17,14 +17,25 @@ class TeamAnswer extends Component {
     })
   }
 
-  // Single answer window
-  createAnswerForm(dispatch, item) {
-    const answerText = item.answer ? `Previous answer: ${item.answer}` : "";
+  onSubmit(values) {
+    console.log(this);
+    console.log(values);
+  }
+  handleClick(values) {
+    console.log('daaaaaaaak');
+    console.log(this);
+    console.log(values);
+  }
 
+  // Single answer window
+  createAnswerForm(item) {
+    const answerText = item.answer ? `Previous answer: ${item.answer}` : "";
+    const { dispatch, handleSubmit } = this.props;
     return(
-      <li>
+      <li key={item.id}>
         <p>{answerText}</p>
-        <form onSubmit={dispatch(addNewItemSocket(socket,newItem)) }>
+        {/*<form onSubmit={dispatch(addNewItemSocket(socket,"2")) }>*/}
+        <form key={item.id} onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <Field
             label="Answer"
             name={item.id}
@@ -38,7 +49,7 @@ class TeamAnswer extends Component {
   // Single form
   renderField(field) {
     return(
-      <div className={className}>
+      <div>
         <label>{field.label}</label>
         <input
           className="form-control"
@@ -50,21 +61,31 @@ class TeamAnswer extends Component {
   }
   render() {
     const {dispatch,game} = this.props
-		if(!game) return (<div>Waiting for game to start</div>);
+
+		if(Object.keys(game).length === 0) return (<div>Waiting for game to start</div>);
+
 		return(
 			<div>
 				<h3>Questions and answers</h3>
 				<ul>
-					{game.map(dispatch, item => this.createAnswerForm.bind(this))}
+					{_.map(game, item => this.createAnswerForm(item))}
 				</ul>
 			</div>
 		);
   }
 }
 
+// Validates form
+function validate(values) {
+  const errors = {};
+  return errors;
+}
 // this.props === ownProps
 const mapStateToProps = (state = {}) => {
     return {...state};
 };
 
-export default connect(mapStateToProps)(TeamAnswer);
+export default reduxForm({
+  validate,
+  form: 'GameJoinForm',
+}) (connect(mapStateToProps)(TeamAnswer));

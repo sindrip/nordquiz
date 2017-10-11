@@ -15,11 +15,12 @@ export const AddItem = (res) => ({
 
 export const initialItems = (res) => ({
 	type: INITIAL_ITEMS,
-	payload: res
+	payload: [{ id: 2, answer: 3}, { id: 2, answer: 3}]
 })
 
 // Team Answer
 export const loadInitialDataSocket = (socket) => {
+	initialItems("s")
 	return (dispatch) => {
 		socket.on('init',(res)=>{
 		   console.dir(res)
@@ -29,6 +30,7 @@ export const loadInitialDataSocket = (socket) => {
 }
 
 export const addNewItemSocket = (socket,item) => {
+	console.log('baaaaaaaaaaaaaaaaaa');
 	return (dispatch) => {
 		let postData = {
 				item:item,
@@ -36,16 +38,4 @@ export const addNewItemSocket = (socket,item) => {
 		     }
 	    socket.emit('addItem',postData)
 	}
-}
-
-// React items
-export function joinGame(values, callback) {
-  // send registration to server, return true if game exists
-  //const request = axios.post(`${ROOT_URL}/posts${API_KEY}`, values)
-  //  .then(res => callback(res.data));
-  callback({url:`${values.game}/${values.team}`})
-  return {
-    type: JOIN_GAME,
-    payload: request,
-  }
 }

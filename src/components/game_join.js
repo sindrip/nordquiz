@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { joinGame } from '../actions/index.js';
 
 class GameJoin extends Component {
   renderField(field) {
@@ -26,9 +25,7 @@ class GameJoin extends Component {
 
   // Handles submit
   onSubmit(values) {
-    this.props.joinGame(values, data => {
-      this.props.history.push(`/game/${data.url}`);
-    });
+    this.props.history.push(`/game/${values.game}/${values.team}`);
   }
 
   render() {
@@ -83,5 +80,5 @@ export default reduxForm({
   validate,
   form: 'GameJoinForm',
 })(
-  connect(null,{ joinGame })(GameJoin)
+  (GameJoin)
 );

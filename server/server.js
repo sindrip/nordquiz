@@ -35,6 +35,8 @@ io.on('connection', function(socket){
     // clients.splice(index,1);
   });
 
+  socket.emit('init','da')
+
   socket.on('joinGame', function(msg) {
     if (games[msg]) {
       socket.join(msg);
