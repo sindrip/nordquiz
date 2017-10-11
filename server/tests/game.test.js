@@ -66,7 +66,7 @@ describe('GAME', () => {
         expect(game.nextQuestion().data).toBe('q1');
         game.addPlayer('test')
         expect(game.getPlayers()).toEqual({'test': []});
-        expect(game.addPlayer('test')).toBeNull();
+        expect(game.addPlayer('test').data).toBeNull();
         expect(game.getPlayers()).toEqual({'test': []});
         done();
     });

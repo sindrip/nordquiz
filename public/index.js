@@ -7,6 +7,9 @@ let Page = (() => {
 
   let init = () => {
     socket = io();
+
+    socket.emit()
+
     socket.on('status', function(msg) {
       console.log(msg);
     });
@@ -16,14 +19,31 @@ let Page = (() => {
       document.getElementById('output').innerHTML  += '\n' + msg;
     });
 
+    socket.on('res', function(msg) {
+      console.log(msg);
+    });
+
     document.getElementById('byrjaleik').onclick = () => {
       console.log('admin byrja leik');
-      socket.emit('stateChange', 'gameStart');
+      socket.emit('stateChange', {
+        command: 'gameStart',
+        name: 'testName',
+      });
     };
 
     document.getElementById('naestaspurning').onclick = () => {
       console.log('admin naesta spurning');
-      socket.emit('stateChange', 'nextQuestion');
+      socket.emit('stateChange', {
+        command: 'nextQuestion',
+        name: 'testName',
+      });
+    };
+
+    document.getElementById('joinroom').onclick = (e) => {
+      e.preventDefault();
+      console.log('joinroom');
+      const room = document.getElementById('joinRoomTexti').value;
+      socket.emit('joinGame', room);
     };
 
   }
