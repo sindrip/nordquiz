@@ -39,11 +39,13 @@ class Game {
     }
 
     addPlayer(name) {
-      if (!this.players.name) {
-        this.players[name] = [];
-      } else {
-        return null;
-      }
+      let breaker = false;
+      Object.keys(this.players).forEach((player) => {
+        if (player === name) breaker = true;
+      });
+      if (breaker) return null;
+
+      this.players[name] = [];
     }
 
     answerQuestion(name, questionNumber, answer) {

@@ -58,4 +58,16 @@ describe('GAME', () => {
         expect(game.getPlayers()).toEqual({test: ['answer']});
         done();
     });
+
+    it('should not add a player if name already exists', (done) => {
+        let questions = ['q1', 'q2'];
+        let game = new Game(questions);
+        game.start();
+        expect(game.nextQuestion().data).toBe('q1');
+        game.addPlayer('test')
+        expect(game.getPlayers()).toEqual({'test': []});
+        expect(game.addPlayer('test')).toBeNull();
+        expect(game.getPlayers()).toEqual({'test': []});
+        done();
+    });
 });
