@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 
-const socket = require('./socket');
+const {Game} = require('./Game.js');
 
 const port = process.env.PORT || 3000;
 
@@ -20,31 +20,45 @@ app.use(morgan('dev'));
 app.use(express.static('public'));
 
 // SOCKET
-let clients = [];
-let gameStatus = 'pregame';
-let number = 0;
-let questions = ['spurning 1', 'spurning 2'];
+// let clients = [];
+let questions = ['q1', 'q2'];
+
+let games = {};
 
 io.on('connection', function(socket){
-  clients.push(socket.id);
+  // clients.push(socket);
   console.log('a user connected: ', socket.id);
-  socket.emit('status', gameStatus);
 
   socket.on('disconnect', function(){
     console.log('user disconnected');
-    var index = clients.indexOf(socket.id);
-    clients.splice(index,1);
+    // var index = clients.indexOf(socket.id);
+    // clients.splice(index,1);
+  });
+
+  socket.on('joinGame', function(msg) {
+    if (games[msg]) {
+      socket.join(msg);
+
+      socket.emit('res', 'joinGameSuccess');
+      return;
+    }
+
+    socket.emit('res', 'joinGameFailure');
   });
 
   socket.on('stateChange', function(msg) {
-    console.log(msg);
-    if (msg === 'gamestart') {
-      gameStatus = msg;
-    } else if (msg === 'nextquestion') {
-      console.log('next')
+    if (msg.command === 'gameStart') {
+      games[msg.name] = new Game(questions);
+      games[msg.name].start();
     }
 
+    if (msg.command === 'nextQuestion') {
 
+      let payload = games[msg.name].nextQuestion();
+
+      if (payload.state !== 'PLAY') return;
+      io.to(msg.name).emit('newQuestion', payload.data);
+    }
   });
 
 });
