@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
-import {socket, loadInitialDataSocket, addNewItemSocket, AddItem} from '../actions'
-import io from "socket.io-client"
+import {socket, loadInitialDataSocket, addNewItemSocket, AddItem} from '../actions';
 
 class TeamAnswer extends Component {
   constructor(props)
@@ -50,13 +49,13 @@ class TeamAnswer extends Component {
     )
   }
   render() {
-    const {dispatch,items} = this.props
-		if(!items) return (<div>Waiting for game to start</div>);
+    const {dispatch,game} = this.props
+		if(!game) return (<div>Waiting for game to start</div>);
 		return(
 			<div>
 				<h3>Questions and answers</h3>
 				<ul>
-					{items.map(dispatch, item => this.createAnswerForm.bind(this))}
+					{game.map(dispatch, item => this.createAnswerForm.bind(this))}
 				</ul>
 			</div>
 		);

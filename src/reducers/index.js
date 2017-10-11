@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
-import PostsReducer from './reducer_posts.js'
+import GameReducer from './reducer_game.js'
 
 const rootReducer = combineReducers({
-  posts: PostsReducer,
+  game: GameReducer,
   form: formReducer,
 });
 
