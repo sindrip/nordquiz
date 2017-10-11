@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import promise from 'redux-promise';
-import thunk from 'redux-thunk'
+import thunk from 'redux-thunk';
 
 import reducers from './reducers';
 import GameIndex from './components/game_index';

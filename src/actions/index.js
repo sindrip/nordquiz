@@ -1,11 +1,11 @@
 import axios from 'axios';
+import openSocket from 'socket.io-client';
+
+export const socket = openSocket('http://localhost:8080');
 
 export const JOIN_GAME = 'join_game';
 export const ADD_ANSWER = 'add_answer';
 export const INITIAL_ITEMS = 'initial_items';
-
-
-const ROOT_URL = 'http://coolurl.herokuapp.com/api';
 
 // Socket items
 export const AddItem = (res) => ({
@@ -18,6 +18,16 @@ export const initialItems = (res) => ({
 	payload: res
 })
 
+// Game Index
+export const testSocket = () => {
+	return (dispatch) => {
+		socket.on('mainPage'),(res)=>{
+			console.dir(res);
+		}
+	}
+}
+
+// Team Answer
 export const loadInitialDataSocket = (socket) => {
 	return (dispatch) => {
 		socket.on('initialList',(res)=>{

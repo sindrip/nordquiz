@@ -1,7 +1,8 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import {socket, testSocket} from '../actions'
 
 const BUTTONS = {
   join: {
@@ -19,6 +20,14 @@ const BUTTONS = {
 }
 
 class GameIndex extends Component {
+  constructor(props)
+  {
+    super(props)
+    const { dispatch } = this.props
+
+    dispatch(testSocket(socket))
+
+  }
 
   renderButton(button) {
     return (
@@ -27,16 +36,29 @@ class GameIndex extends Component {
       </Link>
     )
   }
-
+  handleClick(e) {
+    console.log('da');
+  }
   render() {
     return(
       <div>
         <h2> Nörd quiz </h2>
         {_.map(BUTTONS, this.renderButton.bind(this))}
+        <div>
+          <p>
+            Test button
+          </p>
+          <button onClick={this.handleClick.bind(this)}>
+            Test socket
+          </button>
+        </div>
       </div>
     )
   }
 }
 
+const mapStateToProps = (state = {}) => {
+    return {...state};
+};
 
-export default GameIndex;
+export default connect(mapStateToProps)(GameIndex);

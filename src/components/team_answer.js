@@ -2,11 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
-import {loadInitialDataSocket, addNewItemSocket, AddItem} from '../actions'
+import {socket, loadInitialDataSocket, addNewItemSocket, AddItem} from '../actions'
 import io from "socket.io-client"
-// import {List as List} from 'immutable';
-
-let socket;
 
 class TeamAnswer extends Component {
   constructor(props)
@@ -14,19 +11,12 @@ class TeamAnswer extends Component {
     super(props)
     const { dispatch } = this.props
 
-    socket = io.connect("http://localhost:8080")
     dispatch(loadInitialDataSocket(socket))
 
     socket.on('itemAdded',(res)=>{
       dispatch(AddItem(res))
     })
   }
-
-  componentWillUnmount() {
-    socket.disconnect()
-    alert("Disconnecting Socket as component will unmount")
-  }
-
 
   // Single answer window
   createAnswerForm(dispatch, item) {
