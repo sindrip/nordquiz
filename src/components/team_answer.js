@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import {socket, loadInitialDataSocket, addNewItemSocket, AddItem} from '../actions';
+import TeamAnswerForm from './team_answer_field';
 
 class TeamAnswer extends Component {
   constructor(props)
@@ -66,6 +67,7 @@ class TeamAnswer extends Component {
 
 		return(
 			<div>
+        <TeamAnswerForm />
 				<h3>Questions and answers</h3>
 				<ul>
 					{_.map(game, item => this.createAnswerForm(item))}
