@@ -46,4 +46,16 @@ describe('GAME', () => {
 
         done();
     });
+
+    it('should add a new player to a game and let him answer a question', (done) => {
+        let questions = ['q1', 'q2'];
+        let game = new Game(questions);
+        game.start();
+        expect(game.nextQuestion().data).toBe('q1');
+        game.addPlayer('test')
+        expect(game.getPlayers()).toEqual({'test': []});
+        game.answerQuestion('test', 0, 'answer');
+        expect(game.getPlayers()).toEqual({test: ['answer']});
+        done();
+    });
 });

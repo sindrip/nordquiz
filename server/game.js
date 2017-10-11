@@ -3,9 +3,12 @@ class Game {
     // GAME STATES: [PRE, PLAY, POST, END]
     constructor(questions) {
         this.state = 'PRE';
+
         this.questions = questions;
         this.question = null;
         this.questionNumber = -1;
+
+        this.players = {};
     }
 
     // PAYLOAD : { STATE, DATA }
@@ -35,6 +38,23 @@ class Game {
         return this._payload(this.question);
     }
 
+    addPlayer(name) {
+      if (!this.players.name) {
+        this.players[name] = [];
+      } else {
+        return null;
+      }
+    }
+
+    answerQuestion(name, questionNumber, answer) {
+      Object.keys(this.players).forEach((player) => {
+        if (player === name) {
+          this.players[name][questionNumber] = answer;
+        }
+      });
+      return null;
+    }
+
     getQuestions() {
         return this.questions;
     }
@@ -45,6 +65,10 @@ class Game {
 
     getState() {
         return this.state;
+    }
+
+    getPlayers() {
+      return this.players;
     }
 }
 
