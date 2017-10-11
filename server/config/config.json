@@ -1,0 +1,12 @@
+{
+  "test": {
+    "PORT": 3000,
+    "DATABASE_URL": "postgres://eetklmgz:PJBpFdrEnstfL5IJuAB_hic2P_3a3-Q9@horton.elephantsql.com:5432/eetklmgz",
+    "JWT_SECRET": "02j2309j23ffdsdsfsdf"
+  },
+  "development": {
+    "PORT": 3000,
+    "DATABASE_URL": "postgres://eetklmgz:PJBpFdrEnstfL5IJuAB_hic2P_3a3-Q9@horton.elephantsql.com:5432/eetklmgz",
+    "JWT_SECRET": "02j2309j23ffdsdsfsdf"
+  }
+}

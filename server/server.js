@@ -1,3 +1,5 @@
+require('./config/config');
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
@@ -5,7 +7,7 @@ const cookieParser = require('cookie-parser');
 
 const {Game} = require('./Game.js');
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 
 let app = express();
 let http = require('http').Server(app);
@@ -66,7 +68,6 @@ io.on('connection', function(socket){
       io.to(msg.name).emit('newQuestion', payload.data);
     }
   });
-
 });
 
 http.listen(port, () => {

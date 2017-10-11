@@ -5,18 +5,16 @@ const jwt = require('jsonwebtoken');
 const express = require('express');
 const router = express.Router();
 
-let jwtsecretpass = 'jwtsecret';
-
 let generateAuthToken = (userID) => {
   var access = 'auth';
-  var token = jwt.sign({id: userID, access}, jwtsecretpass).toString();
+  var token = jwt.sign({id: userID, access}, process.env.JWT_SECRET).toString();
   return token;
 }
 
 var verifyToken = (token) => {
   let decoded;
   try {
-    decoded = jwt.verify(token, jwtsecretpass);
+    decoded = jwt.verify(token, process.env.JWT_SECRET);
     console.log(decoded);
     return true;
 
