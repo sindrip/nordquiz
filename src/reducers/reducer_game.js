@@ -8,7 +8,7 @@ export default function (state = {}, action) {
     case ADD_ANSWER:
       return {...state, [action.payload.data.id]: action.payload.data };
     case INITIAL_ITEMS:
-      return [{answer:'daa',id:'test'},{answer:'daa',id:'tst2'}];
+      return [{answer:'',id:'test'},{answer:'daa',id:'tst2'}];
       return _.mapKeys(action.payload, 'id');
     default:
       return state;

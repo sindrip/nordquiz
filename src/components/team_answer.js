@@ -18,48 +18,10 @@ class TeamAnswer extends Component {
     })
   }
 
-  onSubmit(values) {
-    console.log(this);
-    console.log(values);
-  }
-  handleClick(values) {
-    console.log('daaaaaaaak');
-    console.log(this);
+  handleSubmit(values) {
     console.log(values);
   }
 
-  // Single answer window
-  createAnswerForm(item) {
-    const answerText = item.answer ? `Previous answer: ${item.answer}` : "";
-    const { dispatch, handleSubmit } = this.props;
-    return(
-      <li key={item.id}>
-        <p>{answerText}</p>
-        {/*<form onSubmit={dispatch(addNewItemSocket(socket,"2")) }>*/}
-        <form key={item.id} onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-          <Field
-            label="Answer"
-            name={item.id}
-            component={this.renderField}
-          />
-          <button type="submit" className="btn btn-primary">Submit</button>
-        </form>
-      </li>
-    );
-  }
-  // Single form
-  renderField(field) {
-    return(
-      <div>
-        <label>{field.label}</label>
-        <input
-          className="form-control"
-          type="text"
-          {...field.input}
-        />
-      </div>
-    )
-  }
   render() {
     const {dispatch,game} = this.props
 
@@ -67,10 +29,16 @@ class TeamAnswer extends Component {
 
 		return(
 			<div>
-        <TeamAnswerForm />
+        {}
 				<h3>Questions and answers</h3>
-				<ul>
-					{_.map(game, item => this.createAnswerForm(item))}
+				<ul className="list-group">
+					{_.map(game, item => <li className="list-group-item" key={item.id}>
+                                <TeamAnswerForm
+                                  item={item}
+                                  id={item.id}
+                                  onSubmit={this.handleSubmit}
+                                />
+                              </li>)}
 				</ul>
 			</div>
 		);
@@ -87,7 +55,4 @@ const mapStateToProps = (state = {}) => {
     return {...state};
 };
 
-export default reduxForm({
-  validate,
-  form: 'GameJoinForm',
-}) (connect(mapStateToProps)(TeamAnswer));
+export default (connect(mapStateToProps)(TeamAnswer));

@@ -1,3 +1,11 @@
 form a {
   margin-left: 5px;
 }
+
+.list-group {
+    list-style: decimal inside;
+}
+
+.list-group-item {
+    display: list-item;
+}
