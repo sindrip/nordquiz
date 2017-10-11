@@ -42,8 +42,10 @@ let Page = (() => {
     document.getElementById('joinroom').onclick = (e) => {
       e.preventDefault();
       console.log('joinroom');
-      const room = document.getElementById('joinRoomTexti').value;
-      socket.emit('joinGame', room);
+      const roomName = document.getElementById('joinRoomTexti').value;
+      socket.emit('joinGame', {
+        roomName,
+      });
     };
 
   }
