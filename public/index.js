@@ -11,16 +11,20 @@ let Page = (() => {
       console.log(msg);
     });
 
+    socket.on('newQuestion', function(msg) {
+      console.log('test')
+      document.getElementById('output').innerHTML  += '\n' + msg;
+    });
+
     document.getElementById('byrjaleik').onclick = () => {
       console.log('admin byrja leik');
-      socket.emit('stateChange', 'gamestart');
+      socket.emit('stateChange', 'gameStart');
     };
 
     document.getElementById('naestaspurning').onclick = () => {
       console.log('admin naesta spurning');
-      socket.emit('stateChange', 'nextquestion');
+      socket.emit('stateChange', 'nextQuestion');
     };
-
 
   }
 

@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 
-const socket = require('./socket');
+const {Game} = require('./Game.js');
 
 const port = process.env.PORT || 3000;
 
@@ -21,14 +21,12 @@ app.use(express.static('public'));
 
 // SOCKET
 let clients = [];
-let gameStatus = 'pregame';
-let number = 0;
-let questions = ['spurning 1', 'spurning 2'];
+let questions = ['q1', 'q2'];
+let game;
 
 io.on('connection', function(socket){
-  clients.push(socket.id);
+  clients.push(socket);
   console.log('a user connected: ', socket.id);
-  socket.emit('status', gameStatus);
 
   socket.on('disconnect', function(){
     console.log('user disconnected');
@@ -37,14 +35,17 @@ io.on('connection', function(socket){
   });
 
   socket.on('stateChange', function(msg) {
-    console.log(msg);
-    if (msg === 'gamestart') {
-      gameStatus = msg;
-    } else if (msg === 'nextquestion') {
-      console.log('next')
+    if (msg === 'gameStart') {
+      game = new Game(questions);
+      game.start();
     }
+    if (msg === 'nextQuestion') {
 
+      let payload = game.nextQuestion();
 
+      if (payload.state !== 'PLAY') return;
+      io.emit('newQuestion', payload.data);
+    }
   });
 
 });

@@ -2,7 +2,7 @@ const expect = require('expect');
 
 const {Game} = require('./../Game.js');
 
-describe('Game', () => {
+describe('GAME', () => {
     it('should create a new game object', (done) => {
         try {
             let questions = ['q1', 'q2'];
