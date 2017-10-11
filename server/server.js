@@ -1,49 +1,55 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
 
 const {Game} = require('./Game.js');
 
 const port = process.env.PORT || 3000;
 
-// const app = express();
-// const server = require('http').Server(app);
-// const wss = socket.start(server);
 let app = express();
 let http = require('http').Server(app);
 let io = require('socket.io')(http);
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(morgan('dev'));
+
+// ADMIN ROUTES
+const admin = require('./routes/admin');
+app.use('/admin', admin);
 
 // PUBLIC SERVE
 app.use(express.static('public'));
 
-// SOCKET
-// let clients = [];
+// GAMES
 let questions = ['q1', 'q2'];
-
 let games = {};
 
+// SOCKETS
 io.on('connection', function(socket){
-  // clients.push(socket);
   console.log('a user connected: ', socket.id);
 
   socket.on('disconnect', function(){
     console.log('user disconnected');
-    // var index = clients.indexOf(socket.id);
-    // clients.splice(index,1);
   });
 
   socket.on('joinGame', function(msg) {
-    if (games[msg]) {
-      socket.join(msg);
+    if (games[msg.roomName]) {
+      socket.join(msg.roomName);
 
-      socket.emit('res', 'joinGameSuccess');
+      socket.emit('res', {
+        code: 'joinGameSuccess',
+        
+      });
       return;
     }
 
-    socket.emit('res', 'joinGameFailure');
+    socket.emit('res', {
+      code: 'joinGameFailure'
+
+    });
   });
 
   socket.on('stateChange', function(msg) {
