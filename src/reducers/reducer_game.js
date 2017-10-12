@@ -9,7 +9,7 @@ export default function (state = {}, action) {
     case ADD_ANSWER:
       return {...state, [action.payload.data.id]: action.payload.data };
     case INITIAL_ITEMS:
-      return [{answer:'',id:'1'},{answer:'prevAnswer',id:'2'},{answer:'image',id:'3',hasImage:true,image:'bjo'}];
+      return [{answer:'',id:'1'},{answer:'prevAnswer',id:'2'},{answer:'image',id:'3',hasImage:true,image:'ugla'}];
       return _.mapKeys(action.payload, 'id');
     default:
       return state;

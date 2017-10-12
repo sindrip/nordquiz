@@ -14,7 +14,8 @@ class TeamAnswerForm extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
   renderImage(item) {
-    return <img src={require('../../static/ugla.jpg')} />
+    console.log(item.image);
+    return <img src={require(`../../static/${item.image}.jpg`)} />
   }
   // Single answer window
   createAnswerForm(item) {
@@ -24,6 +25,8 @@ class TeamAnswerForm extends Component {
     // Text in submit button
     const buttonText = item.answer ? "Resubmit" : "Submit";
     // If image tag is on item
+    console.log(item);
+    console.log(item.hasImage === true);
     const imageTag = item.hasImage ? this.renderImage(item) : "";
 
     return(
