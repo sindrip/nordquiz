@@ -1,3 +1,9 @@
+.index-route {
+  display: flex;
+}
+.index-route-button {
+  margin-right: 20px;
+}
 form a {
   margin-left: 5px;
 }

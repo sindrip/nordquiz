@@ -22,26 +22,17 @@ class GameIndex extends Component {
 
   renderButton(button) {
     return (
-      <Link key={button.path} className="btn btn-primary" to={`/${button.path}`}>
+      <Link key={button.path} className="btn btn-primary index-route-button" to={`/${button.path}`}>
         {button.text}
       </Link>
     )
-  }
-  handleClick(e) {
-    console.log('da');
   }
   render() {
     return(
       <div>
         <h2> Nörd quiz </h2>
-        {_.map(BUTTONS, this.renderButton.bind(this))}
-        <div>
-          <p>
-            Test button
-          </p>
-          <button onClick={this.handleClick.bind(this)}>
-            Test socket
-          </button>
+        <div className="index-route">
+          {_.map(BUTTONS, this.renderButton.bind(this))}
         </div>
       </div>
     )
