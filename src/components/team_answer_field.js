@@ -14,7 +14,7 @@ class TeamAnswerForm extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
   renderImage(item) {
-    return <p>image here</p>
+    return <img src={require('../../static/ugla.jpg')} />
   }
   // Single answer window
   createAnswerForm(item) {

@@ -25,6 +25,13 @@ form a {
   margin-top: 50px;
   margin-bottom: 25px;
 }
+.list-answer-image {
+  margin: 0 auto;
+}
+.list-answer-image > img {
+  max-height:100%;
+  width: 100%;
+}
 @media (min-width: 800px) {
   .list-answer {
     flex-direction: row;
