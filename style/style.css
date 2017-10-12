@@ -1,11 +1,39 @@
 form a {
   margin-left: 5px;
 }
-
-.list-group {
-    list-style: decimal inside;
+.list-answer{
+  display: flex;
+  flex-direction: column;
 }
+.list-answer-id {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
-.list-group-item {
-    display: list-item;
+  font-size: 22px;
+  font-weight: bold;
+}
+.list-answer-id > p {
+  /*margin: 0;*/
+}
+.list-answer-id-span {
+}
+.list-answer-text {
+  margin-bottom: 0;
+}
+.team-answer-header {
+  margin-top: 50px;
+  margin-bottom: 25px;
+}
+@media (min-width: 800px) {
+  .list-answer {
+    flex-direction: row;
+  }
+  .list-answer-id {
+    width: 20px;
+    margin-right: 20px;
+  }
+  .list-answer-id-span {
+    display: none;
+  }
 }

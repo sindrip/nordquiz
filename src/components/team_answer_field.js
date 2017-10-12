@@ -13,15 +13,29 @@ class TeamAnswerForm extends Component {
 
     this.handleChange = this.handleChange.bind(this);
   }
+  renderImage(item) {
+    return <p>image here</p>
+  }
   // Single answer window
   createAnswerForm(item) {
-    const answerText = item.answer ? `Previous answer: ${item.answer}` : "";
-    const buttonText = item.answer ? "Resubmit" : "Submit";
     const { dispatch, handleSubmit } = this.props;
+    // Show previous answer text
+    const answerText = item.answer ? `Previous answer: ${item.answer}` : "";
+    // Text in submit button
+    const buttonText = item.answer ? "Resubmit" : "Submit";
+    // If image tag is on item
+    const imageTag = item.hasImage ? this.renderImage(item) : "";
 
     return(
+      <div className="list-answer">
+        <div className="list-answer-id">
+          <p>
+            <span className="list-answer-id-span">Question number: </span>
+            {this.props.id}
+          </p>
+        </div>
         <div>
-          <p>{answerText}</p>
+          <p className="list-answer-text">{answerText}</p>
           <form formName={this.props.id} onSubmit={handleSubmit(this.onSubmit.bind(this))}>
             <Field
               label="Answer"
@@ -31,6 +45,10 @@ class TeamAnswerForm extends Component {
             <button type="submit" className="btn btn-primary">{buttonText}</button>
           </form>
         </div>
+        <div className="list-answer-image">
+          {imageTag}
+        </div>
+      </div>
     );
   }
   // Single form

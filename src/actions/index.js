@@ -21,6 +21,7 @@ export const initialItems = (res) => ({
 // Team Answer
 export const loadInitialDataSocket = (socket) => {
 	initialItems("s")
+	console.log('here');
 	return (dispatch) => {
 		socket.on('init',(res)=>{
 		   console.dir(res)

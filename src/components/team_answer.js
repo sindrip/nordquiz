@@ -30,7 +30,7 @@ class TeamAnswer extends Component {
 		return(
 			<div>
         {}
-				<h3>Questions and answers</h3>
+				<h3>Questions and Answers</h3>
 				<ul className="list-group">
 					{_.map(game, item => <li className="list-group-item" key={item.id}>
                                 <TeamAnswerForm
