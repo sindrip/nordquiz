@@ -12,9 +12,9 @@ class TeamAnswerForm extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.renderTextField = this.renderTextField.bind(this);
   }
   renderImage(item) {
-    console.log(item.image);
     return <img src={require(`../../static/${item.image}.jpg`)} />
   }
   // Single answer window
@@ -25,10 +25,9 @@ class TeamAnswerForm extends Component {
     // Text in submit button
     const buttonText = item.answer ? "Resubmit" : "Submit";
     // If image tag is on item
-    console.log(item);
-    console.log(item.hasImage === true);
     const imageTag = item.hasImage ? this.renderImage(item) : "";
-
+    // Shows dropdown if has dropdown property
+    const formType = item.type === 'dropdown' ? this.renderDropDown(item) : this.renderTextField();
     return(
       <div className="list-answer">
         <div className="list-answer-id">
@@ -40,11 +39,7 @@ class TeamAnswerForm extends Component {
         <div>
           <p className="list-answer-text">{answerText}</p>
           <form formName={this.props.id} onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-            <Field
-              label="Answer"
-              name="Ans"
-              component={this.renderField}
-            />
+            {formType}
             <button type="submit" className="btn btn-primary">{buttonText}</button>
           </form>
         </div>
@@ -53,6 +48,35 @@ class TeamAnswerForm extends Component {
         </div>
       </div>
     );
+  }
+  // Handles the dropdown
+  renderDropDown(item) {
+    console.log('dropdown');
+    return(
+      <Field
+        name="ans"
+        component="select"
+        className="form-control">
+        {item.dropdown.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+      </Field>
+    )
+  }
+  test() {
+    console.log('TEST');
+    return (
+      <select></select>
+    )
+  }
+  // Handles the text field
+  renderTextField() {
+    console.log('texfield');
+    return(
+      <Field
+        label="Answer"
+        name="Ans"
+        component={this.renderField}
+      />
+    )
   }
   // Single form
   renderField(field) {
@@ -75,7 +99,7 @@ class TeamAnswerForm extends Component {
   }
 
   onSubmit(values) {
-    this.props.onSubmit('rrr');
+    this.props.onSubmit(values);
   }
 
   handleChange(event) {
