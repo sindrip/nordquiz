@@ -15,12 +15,17 @@ class AdminPage extends Component {
     this.state = {
       admin: false
     };
+    socket.emit('validate','here');
+    socket.on('admin',(res)=>{
+      if(!res.admin) {
+        this.props.history.push('/join');
+      }
+    })
   }
-  componentWillReceiveProps(d) {
-    console.log(d);
-  }
-  render() {
 
+  render() {
+    console.log('render');
+    console.log(this.props.login);
     if(!this.props.login.admin) {
       //this.props.history.push('/create');
     }
