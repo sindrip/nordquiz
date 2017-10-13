@@ -2,6 +2,8 @@ import _ from 'lodash';
 import { JOIN_GAME, ADD_ANSWER, INITIAL_ITEMS } from '../actions/index';
 
 export default function (state = {}, action) {
+  console.log(state);
+  console.log(action.type);
   switch (action.type) {
     case JOIN_GAME:
       return {...state};
