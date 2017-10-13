@@ -2,8 +2,21 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { socket } from '../actions';
 
 class GameJoin extends Component {
+  constructor(props)
+  {
+    super(props)
+
+    socket.on('res',(res)=>{
+      if(res.code === 'joinGameSuccess') {
+        this.props.history.push(`/game/${res.roomName}`);
+      } else {
+        this.props.history.push('/join');
+      }
+    })
+  }
   renderField(field) {
     const { meta: { touched, error } } = field;
     const className = `form-group ${touched && error ? 'has-danger' : ''}`;
@@ -25,7 +38,7 @@ class GameJoin extends Component {
 
   // Handles submit
   onSubmit(values) {
-    this.props.history.push(`/game/${values.game}/${values.team}`);
+    socket.emit('joinGame',values);
   }
 
   render() {
@@ -36,12 +49,12 @@ class GameJoin extends Component {
       <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
         <Field
           label="Game name"
-          name="game"
+          name="roomName"
           component={this.renderField}
         />
         <Field
           label="Team name"
-          name="team"
+          name="playerName"
           component={this.renderField}
         />
         <Field

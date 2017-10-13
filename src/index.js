@@ -11,6 +11,7 @@ import GameIndex from './components/game_index';
 import GameJoin from './components/game_join';
 import TeamAnswer from './components/team_answer';
 import PermissionDenied from './components/permission_denied';
+import AdminPage from './components/admin_page';
 
 const createStoreWithMiddleware = applyMiddleware(thunk, promise)(createStore);
 
@@ -22,7 +23,7 @@ ReactDOM.render(
           <Route path="/game/:game/:team" component={TeamAnswer}/>
           <Route path="/join" component={GameJoin}/>
           <Route path="/create" component={PermissionDenied}/>
-          <Route path="/admin" component={PermissionDenied}/>
+          <Route path="/admin" component={AdminPage}/>
           <Route path="/" component={GameIndex} />
         </Switch>
       </div>
