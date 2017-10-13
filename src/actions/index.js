@@ -20,7 +20,6 @@ export const initialItems = (res) => ({
 
 // Team Answer
 export const loadInitialDataSocket = (socket) => {
-	console.log('here');
 	initialItems("s")
 	return (dispatch) => {
 		socket.on('init',(res)=>{
