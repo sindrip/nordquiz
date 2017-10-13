@@ -51,7 +51,6 @@ class TeamAnswerForm extends Component {
   }
   // Handles the dropdown
   renderDropDown(item) {
-    console.log('dropdown');
     return(
       <Field
         name="ans"
@@ -62,14 +61,12 @@ class TeamAnswerForm extends Component {
     )
   }
   test() {
-    console.log('TEST');
     return (
       <select></select>
     )
   }
   // Handles the text field
   renderTextField() {
-    console.log('texfield');
     return(
       <Field
         label="Answer"

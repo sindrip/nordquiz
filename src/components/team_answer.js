@@ -9,13 +9,18 @@ class TeamAnswer extends Component {
   constructor(props)
   {
     super(props)
-    const { dispatch } = this.props
+    const { dispatch } = this.props;
 
-    dispatch(loadInitialDataSocket(socket))
+    dispatch(loadInitialDataSocket(socket));
 
     socket.on('itemAdded',(res)=>{
       dispatch(AddItem(res))
     })
+  }
+
+  componentWillMount() {
+    const { dispatch } = this.props;
+    dispatch(loadInitialDataSocket(socket));
   }
 
   handleSubmit(values) {

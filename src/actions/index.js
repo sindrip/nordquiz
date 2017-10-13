@@ -15,13 +15,13 @@ export const AddItem = (res) => ({
 
 export const initialItems = (res) => ({
 	type: INITIAL_ITEMS,
-	payload: [{ id: 2, answer: 3}, { id: 2, answer: 3}]
+	payload: res,
 })
 
 // Team Answer
 export const loadInitialDataSocket = (socket) => {
-	initialItems("s")
 	console.log('here');
+	initialItems("s")
 	return (dispatch) => {
 		socket.on('init',(res)=>{
 		   console.dir(res)
