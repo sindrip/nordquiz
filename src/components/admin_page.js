@@ -18,7 +18,7 @@ class AdminPage extends Component {
     socket.emit('validate','here');
     socket.on('admin',(res)=>{
       if(!res.admin) {
-        this.props.history.push('/join');
+        this.props.history.push('/');
       }
     })
   }
