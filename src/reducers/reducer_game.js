@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { JOIN_GAME, ADD_ANSWER, INITIAL_ITEMS } from '../actions/index';
+import { JOIN_GAME, ADD_ANSWER, INITIAL_ITEMS, UPDATE_GAME } from '../actions/index';
 
 export default function (state = {}, action) {
   switch (action.type) {
@@ -7,6 +7,8 @@ export default function (state = {}, action) {
       return {...state};
     case ADD_ANSWER:
       return {...state, [action.payload.data.id]: action.payload.data };
+    case UPDATE_GAME:
+      return action.payload;
     case INITIAL_ITEMS:
       return [
         {answer:'',id:'1'},
@@ -16,15 +18,17 @@ export default function (state = {}, action) {
         {answer:'',id:'7'},
         {answer:'prevAnswer',id:'8'},
         {answer:'image',id:'3',hasImage:true,image:'ugla'},
-        {answer:'dropdown',id:'4',type:'dropdown',dropdown:[
-          'opt1',
-          'opt2',
-          'opt3',
-          'opt4',
-        ]},
       ];
       return _.mapKeys(action.payload, 'id');
     default:
       return state;
   }
 }
+/*
+{answer:'dropdown',id:'4',type:'dropdown',dropdown:[
+  'opt1',
+  'opt2',
+  'opt3',
+  'opt4',
+]},
+*/

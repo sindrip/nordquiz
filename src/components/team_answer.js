@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
-import {socket, loadInitialDataSocket, addNewItemSocket, AddItem} from '../actions';
+import {socket, loadInitialDataSocket, addNewItemSocket, UpdateGame} from '../actions';
 import TeamAnswerForm from './team_answer_field';
 
 class TeamAnswer extends Component {
@@ -13,8 +13,8 @@ class TeamAnswer extends Component {
 
     dispatch(loadInitialDataSocket(socket));
 
-    socket.on('itemAdded',(res)=>{
-      dispatch(AddItem(res))
+    socket.on('updateGame',(res)=>{
+      dispatch(UpdateGame(res))
     })
   }
 
@@ -23,8 +23,9 @@ class TeamAnswer extends Component {
     dispatch(loadInitialDataSocket(socket));
   }
 
-  handleSubmit(values) {
-    console.log(values);
+  handleSubmit(values, id) {
+    console.log(values, id);
+    //dispatch(addNewItemSocket(socket, values));
   }
 
   render() {

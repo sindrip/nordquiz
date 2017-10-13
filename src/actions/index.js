@@ -5,12 +5,17 @@ export const socket = openSocket('http://localhost:3000');
 
 export const JOIN_GAME = 'join_game';
 export const ADD_ANSWER = 'add_answer';
+export const UPDATE_GAME = 'update_game'
 export const INITIAL_ITEMS = 'initial_items';
 export const IS_ADMIN = 'is_admin';
 
 // Socket items
 export const AddItem = (res) => ({
 	type: ADD_ANSWER,
+	payload: res,
+})
+export const UpdateGame = (res) => ({
+	type: UPDATE_GAME,
 	payload: res,
 })
 
@@ -42,12 +47,8 @@ export const loadInitialDataSocket = (socket) => {
 }
 
 export const addNewItemSocket = (socket,item) => {
-	console.log('baaaaaaaaaaaaaaaaaa');
-	return (dispatch) => {
-		let postData = {
-				item:item,
-				completed:false
-		     }
-	    socket.emit('addItem',postData)
-	}
+	socket.emit('answerQuestion',{
+		questionNumber: item.id,
+		answer: item.text,
+	})
 }

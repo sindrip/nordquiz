@@ -96,7 +96,7 @@ class TeamAnswerForm extends Component {
   }
 
   onSubmit(values) {
-    this.props.onSubmit(values);
+    this.props.onSubmit(values, this.props.id);
   }
 
   handleChange(event) {
