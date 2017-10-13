@@ -38,7 +38,7 @@ class Game {
     return this._payload(this.question);
   }
 
-  addPlayer(name) {
+  addPlayer(name, code) {
     if (this.players[name]) {
       return this._payload(null);
     }

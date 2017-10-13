@@ -4,6 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
+const jwt = require('jsonwebtoken');
 
 const {Game} = require('./Game.js');
 
@@ -27,7 +28,7 @@ app.use(express.static('public'));
 
 // GAMES
 let questions = ['q1', 'q2'];
-let games = {};
+let game;
 
 // SOCKETS
 var parser = cookieParser.apply(null, arguments);
@@ -36,30 +37,47 @@ io.use(function (socket, next) {
   parser(socket.request, null, next);
 });
 io.on('connection', function(socket){
-
-  // SKRIFA AUTHENTICATED SOCKETS HER FYRIR ADMIN
+  let decoded;
   try {
-
+    decoded = jwt.verify(socket.request.cookies.jwtToken, process.env.JWT_SECRET);
+    socket.isAdmin = true;
   } catch (e) {
-
+    socket.isAdmin = false;
   }
-  console.log(socket.request.cookies)
-  // NOTA SOCKET.REQUEST.COOKIES FYRI THAD
+  
+  socket.on('admin', function(msg) {
+    if (!socket.isAdmin) return;
 
-  console.log('a user connected: ', socket.id);
+    if (msg.command === 'gameStart') {
+      game = new Game(questions);
+      game.start();
+    }
 
-  socket.on('disconnect', function(){
-    console.log('user disconnected');
+    if (msg.command === 'nextQuestion') {
+
+      let payload = game.nextQuestion();
+
+      if (payload.state !== 'PLAY') return;
+      
+      io.to('nordquiz').emit('newQuestion', payload.data);
+    }
+
+    if (msg.command === 'getGame') {
+      socket.emit('res', game);
+    }
   });
 
   socket.on('joinGame', function(msg) {  
-    if (games[msg.roomName]) {
+    if (game && msg.roomName === 'nordquiz') {
+      socket.playerName = msg.playerName;
+
       socket.join(msg.roomName);
 
       // Bæta við data hérna
       socket.emit('res', {
         code: 'joinGameSuccess',
-
+        roomName: msg.roomName,
+        data: [],
       });
       return;
     }
@@ -69,22 +87,9 @@ io.on('connection', function(socket){
       data: []
     });
   });
-  
-  socket.on('stateChange', function(msg) {
-    if (msg.command === 'gameStart') {
-      
-      games[msg.name] = new Game(questions);
-      games[msg.name].start();
-    }
 
-    if (msg.command === 'nextQuestion') {
-
-      let payload = games[msg.name].nextQuestion();
-
-      if (payload.state !== 'PLAY') return;
-      
-      io.to(msg.name).emit('newQuestion', payload.data);
-    }
+  socket.on('answerQuestion', function(msg) {
+    game.answerQuestion(socket.playerName, msg.questionNumber, msg.answer);
   });
 
 });
