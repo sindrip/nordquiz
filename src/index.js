@@ -20,7 +20,7 @@ ReactDOM.render(
     <BrowserRouter>
       <div>
         <Switch>
-          <Route path="/game/:game/:team" component={TeamAnswer}/>
+          <Route path="/game/:room/" component={TeamAnswer}/>
           <Route path="/join" component={GameJoin}/>
           <Route path="/create" component={PermissionDenied}/>
           <Route path="/admin" component={AdminPage}/>

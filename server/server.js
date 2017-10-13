@@ -53,6 +53,7 @@ io.on('connection', function(socket){
       game.start();
     }
 
+
     if (msg.command === 'nextQuestion') {
 
       let payload = game.nextQuestion();

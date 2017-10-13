@@ -10,6 +10,7 @@ class GameJoin extends Component {
     super(props)
 
     socket.on('res',(res)=>{
+      console.log(res.code, res.roomName);
       if(res.code === 'joinGameSuccess') {
         this.props.history.push(`/game/${res.roomName}`);
       } else {
