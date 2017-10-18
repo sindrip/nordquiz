@@ -1,7 +1,7 @@
 import axios from 'axios';
 import openSocket from 'socket.io-client';
 
-export const socket = openSocket('http://localhost:3000');
+export const socket = openSocket('https://nordquizserver.herokuapp.com/');
 
 export const JOIN_GAME = 'join_game';
 export const ADD_ANSWER = 'add_answer';
@@ -37,10 +37,8 @@ export const adminSocket = (socket) => {
 
 // Team Answer
 export const loadInitialDataSocket = (socket) => {
-	return initialItems("s")
 	return (dispatch) => {
-		socket.on('init',(res)=>{
-		   console.dir(res)
+		socket.on('allQuestions',(res)=>{
 		   dispatch(initialItems(res))
 	   })
 	}

@@ -28,6 +28,7 @@ class AdminPage extends Component {
     console.log(this.props.login);
     if(!this.props.login.admin) {
       //this.props.history.push('/create');
+      return;
     }
     const wat = this.state.admin ? "admin!!" :  "no admin :( :( :("
 		return(

@@ -10,6 +10,7 @@ import reducers from './reducers';
 import GameIndex from './components/game_index';
 import GameJoin from './components/game_join';
 import TeamAnswer from './components/team_answer';
+import QuestionList from './components/question_list';
 import PermissionDenied from './components/permission_denied';
 import AdminPage from './components/admin_page';
 
@@ -20,11 +21,12 @@ ReactDOM.render(
     <BrowserRouter>
       <div>
         <Switch>
+          <Route path="/questions" component={QuestionList}/>
           <Route path="/game/:room/" component={TeamAnswer}/>
           <Route path="/join" component={GameJoin}/>
           <Route path="/create" component={PermissionDenied}/>
           <Route path="/admin" component={AdminPage}/>
-          <Route path="/" component={GameIndex} />
+          <Route path="/" component={QuestionList} />
         </Switch>
       </div>
     </BrowserRouter>

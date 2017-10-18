@@ -5,19 +5,19 @@ import { Link } from 'react-router-dom';
 
 const BUTTONS = {
   join: {
-    path: 'join',
+    path: 'questions',
     text: 'Join a game!'
   },
-  create: {
-    path: 'create',
-    text: 'Create a game',
-  },
-  admin: {
-    path: 'admin',
-    text: 'Manage games',
-  }
-}
 
+}
+/*create: {
+  path: 'create',
+  text: 'Create a game',
+},
+admin: {
+  path: 'admin',
+  text: 'Manage games',
+}*/
 class GameIndex extends Component {
 
   renderButton(button) {

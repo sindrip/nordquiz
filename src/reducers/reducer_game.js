@@ -8,18 +8,10 @@ export default function (state = {}, action) {
     case ADD_ANSWER:
       return {...state, [action.payload.data.id]: action.payload.data };
     case UPDATE_GAME:
-      return action.payload;
+      return [...state, action.payload];
     case INITIAL_ITEMS:
-      return [
-        {answer:'',id:'1'},
-        {answer:'prevAnswer',id:'2'},
-        {answer:'',id:'5'},
-        {answer:'prevAnswer',id:'6'},
-        {answer:'',id:'7'},
-        {answer:'prevAnswer',id:'8'},
-        {answer:'image',id:'3',hasImage:true,image:'ugla'},
-      ];
-      return _.mapKeys(action.payload, 'id');
+      return action.payload.data;
+      return _.mapKeys(action.payload.data, 'id');
     default:
       return state;
   }
