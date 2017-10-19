@@ -8,7 +8,7 @@ class TeamAnswerForm extends Component {
     if(!image) return;
     return (
       <div className="list-answer-image">
-        <img src={require(`../../static/ugla.jpg`)} />
+        <img src="https://i.imgur.com/rnbrX0e.jpg" />
       </div>
     )
   }

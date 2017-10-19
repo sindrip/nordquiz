@@ -15,7 +15,7 @@ class TeamAnswerForm extends Component {
     this.renderTextField = this.renderTextField.bind(this);
   }
   renderImage(item) {
-    return <img src={require(`../../static/${item.image}.jpg`)} />
+    return <div>test</div>
   }
   // Single answer window
   createAnswerForm(item) {
