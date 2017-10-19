@@ -1,3 +1,6 @@
+.container {
+  margin: 2em auto;
+}
 .index-route {
   display: flex;
 }
