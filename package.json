@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Þetta forrit er skrifað fyrir PubQuiz kvöld á vegum nemendafélagsins Nörd\u0000 \u0000",
   "main": "index.js",
+  "engines": {
+    "node": "7.4.0"
+  },
   "scripts": {
     "dev": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "postinstall": "webpack -p",
@@ -38,7 +41,9 @@
   "dependencies": {
     "axios": "^0.16.2",
     "babel-preset-stage-1": "^6.1.18",
+    "express": "^4.16.2",
     "lodash": "^3.10.1",
+    "path": "^0.12.7",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
     "react-redux": "4.3.0",
