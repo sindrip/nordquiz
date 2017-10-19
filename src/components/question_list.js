@@ -16,7 +16,18 @@ class QuestionList extends Component {
       dispatch(UpdateGame(res))
     })
   }
+  scrollToBottom = () => {
+    const node = ReactDOM.findDOMNode(this.messagesEnd);
+    node.scrollIntoView({ behavior: "smooth" });
+  }
 
+  componentDidMount() {
+    this.scrollToBottom();
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
   render() {
     const {dispatch,game} = this.props;
 
@@ -33,6 +44,9 @@ class QuestionList extends Component {
                                 />
                               </li>)}
 				</ul>
+        <div style={{ float:"left", clear: "both" }}
+             ref={(el) => { this.messagesEnd = el; }}>
+        </div>
 			</div>
 		);
   }
