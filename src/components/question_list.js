@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import {socket, loadInitialDataSocket, UpdateGame} from '../actions';
 import QuestionListForm from './question_list_form';
@@ -17,8 +18,9 @@ class QuestionList extends Component {
     })
   }
   scrollToBottom = () => {
-    const node = ReactDOM.findDOMNode(this.messagesEnd);
-    node.scrollIntoView({ behavior: "smooth" });
+    //const node = ReactDOM.findDOMNode(this.messagesEnd);
+    //node.scrollIntoView({ behavior: "smooth" });
+    window.scrollTo(0,document.body.scrollHeight);
   }
 
   componentDidMount() {
@@ -44,9 +46,6 @@ class QuestionList extends Component {
                                 />
                               </li>)}
 				</ul>
-        <div style={{ float:"left", clear: "both" }}
-             ref={(el) => { this.messagesEnd = el; }}>
-        </div>
 			</div>
 		);
   }
