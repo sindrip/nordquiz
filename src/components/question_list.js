@@ -18,10 +18,7 @@ class QuestionList extends Component {
     })
   }
   scrollToBottom = () => {
-    //const node = ReactDOM.findDOMNode(this.messagesEnd);
-    //node.scrollIntoView({ behavior: "smooth" });
     window.scrollTo(0,document.body.scrollHeight);
-    //document.getElementsByClassName("container")[0].animate({scrollTop:document.body.scrollHeight},'50');
   }
 
   componentDidMount() {
